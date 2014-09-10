@@ -1,0 +1,23 @@
+{
+  "name": "polymer-gesture-scroll",
+  "version": "0.0.1",
+  "authors": [
+    "Foysal Osmany"
+  ],
+  "description": "Polymer Gesture Scroll WebComponent",
+  "keywords": [
+    "Polymer",
+    "web-components",
+    "Gesture",
+    "Scroll"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/f0ysal/Polymer-Gesture-Scroll",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
