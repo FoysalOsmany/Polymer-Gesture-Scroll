@@ -1,4 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
+<script src="../tracking.js/build/tracking-min.js"></script>
+<script src="../tracking.js/build/data/face.js"></script>
+<script src="../tracking.js/build/data/eye.js"></script>
+<script src="../tracking.js/build/data/mouth.js"></script>
 
 <!--
 Element providing solution to smart scrolling using gesture.
@@ -12,29 +16,57 @@ Element providing solution to smart scrolling using gesture.
 @status alpha
 @homepage https://github.com/f0ysal/Polymer-Gesture-Scroll
 -->
+
 <polymer-element name="polymer-gesture-scroll" attributes="">
 
   <template>
-
-    <link rel="stylesheet" href="polymer-gesture-scroll.css" />
-    
-    <h1>Scroll your site using gesture</h1>
-    <content>Place this component to enable gesture scrolling</content>
-
+      <video id="video" width="100" height="100" preload autoplay loop muted>
+      </video>
   </template>
 
-  <script>
+    <script>
 
-    Polymer({
-      author: 'Foysal Osmany',
+        Polymer('polymer-gesture-scroll', {
+            author: 'Foysal Osmany',
 
-      fancy: false,
+            fancy: false,
 
-      ready: function() {
+            domReady: function() {
+                var video = this.$.video;
+                var scrollYaxis = window.scrollY;
+                var initYaxis = 0;
+                var objects = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
 
-      },
-    });
+                objects.on('track', function(event) {
+                    if (event.data.length === 0) {
+                        console.log('please try again');
+                    }
+                    else {
+                        event.data.forEach(function(rect) {
+                            if(rect.y - initYaxis > 10 || initYaxis - rect.y > 10)
+                            {
+                                initYaxis = rect.y
+                            }
+                            if(rect.y > initYaxis)
+                            {
+                                window.scrollTo(0,scrollYaxis+=10);
+                            }
+                            if(rect.y < initYaxis && scrollYaxis >=0 )
+                            {
+                                window.scrollTo(0,scrollYaxis-=10);
+                            }
 
-  </script>
+                            console.log(initYaxis, scrollYaxis);
+
+                            lastYaxis = rect.y;
+
+                        });
+                    }
+                });
+               tracking.track(video, objects, { camera: true });
+            }
+        });
+
+    </script>
 
 </polymer-element>

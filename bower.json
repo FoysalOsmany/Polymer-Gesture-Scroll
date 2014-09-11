@@ -21,6 +21,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.4.0"
+    "polymer": "Polymer/polymer#~0.4.0",
+    "tracking.js": "~1.1.0"
   }
 }
