@@ -15,6 +15,8 @@ or download and place into component folder
 How to use:
 ===========
 
-<link rel="import" href="polymer-gesture-scroll.html">
-
-<polymer-gesture-scroll></polymer-gesture-scroll>
+<code>
+  <link rel="import" href="polymer-gesture-scroll.html">
+  
+  <polymer-gesture-scroll></polymer-gesture-scroll>
+</code>
