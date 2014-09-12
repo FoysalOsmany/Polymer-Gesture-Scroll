@@ -2,11 +2,29 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>Polymer Gesture Scroll</title>
-
-
+  <title>Polymer Gesture Scroll Demo</title>
+  <script src="../platform/platform.js"></script>
   <link rel="import" href="polymer-gesture-scroll.html">
+  <link rel="import" href="../core-ajax/core-ajax.html">
+  <style>
+      .card {
+          width: 300px;
+          height: 300px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+          border-bottom-left-radius: 20px;
+          box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px, rgba(0, 0, 0, 0.0980392) 0px 0px 3px;
+          background-color: rgb(255, 255, 255);
+          display: inline-flex;
+          padding: 20px;
+          margin: 20px;
+      }
 
+      .card img {
+          padding-top: 50px;
+      }
+  </style>
 </head>
 <body unresolved>
 
@@ -14,7 +32,29 @@
 
   <polymer-gesture-scroll></polymer-gesture-scroll>
 
-  <link rel="import" href="http://example.com/elements.html">
+  <core-ajax auto url="http://gdata.youtube.com/feeds/api/videos/"
+             params='{"alt":"json", "q":"chrome"}'
+             handleAs="json"></core-ajax>
+
+  <template repeat="{{response.feed.entry}}">
+      <div class="card">
+          <div><img src="{{media$group.media$thumbnail[0].url}}" width="290" /> </div>
+          <div>{{title.$t}}</div>
+      </div>
+  </template>
+
+  <script>
+      document.addEventListener('polymer-ready', function() {
+          var ajax = document.querySelector("core-ajax");
+          ajax.addEventListener("core-response",
+                  function(e) {
+                      document.querySelector('template').model = {
+                          response: e.detail.response
+                      };
+                  }
+          );
+      });
+  </script>
 
 </body>
 </html>
