@@ -32,8 +32,6 @@ How to use:
 
   <polymer-gesture-scroll></polymer-gesture-scroll>
 
-  <link rel="import" href="http://example.com/elements.html">
-
 </body>
 </html>
 
